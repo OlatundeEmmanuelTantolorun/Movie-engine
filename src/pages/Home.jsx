@@ -86,22 +86,22 @@ const Home = () => {
   };
 
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-100 pt-24 px-6 md:px-12 pb-12">
+    <main className="min-h-screen bg-neutral-950 text-neutral-100 pt-24 px-2 md:px-12 pb-12">
       <div className="max-w-xl mx-auto mb-12">
         <form
           onSubmit={handleSearch}
-          className="flex gap-2 bg-neutral-900 border border-neutral-800 rounded-lg p-1.5 focus-within:border-red-500/50 transition-colors duration-300"
+          className="group relative flex items-center bg-neutral-900 border border-neutral-800 rounded-lg p-1.5 focus-within:border-red-500/50 transition-colors duration-300"
         >
           <input
             type="text"
             value={searchQuery}
             onChange={handleInputChange}
-            className="flex-1 bg-transparent px-3 py-2 text-sm text-neutral-100 outline-none placeholder-neutral-500"
             placeholder="Search for movies..."
+            className="w-full bg-transparent pl-3 pr-24 py-2 text-sm text-neutral-100 outline-none placeholder-neutral-500"
           />
           <button
             type="submit"
-            className="bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-md transition-colors duration-200"
+            className="absolute right-1.5 top-1.5 bottom-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider px-4 rounded-md transition-colors duration-200"
           >
             Search
           </button>
@@ -118,7 +118,7 @@ const Home = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3">
             {searchResults.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
@@ -138,14 +138,14 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-2">
               {trendingMovies.map((movie) => (
                 <MovieCard key={movie.id} movie={movie} />
               ))}
             </div>
           </section>
 
-          {/* 🔥 1. Upcoming / Yet to be released section */}
+          {/* 1. Upcoming / Yet to be released section */}
           <section>
             <div className="mb-6">
               <h2 className="text-xl font-extrabold tracking-tight text-neutral-100">
@@ -155,7 +155,7 @@ const Home = () => {
                 Highly anticipated releases with trailers ready to watch.
               </p>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
               {upcomingMovies?.slice(0, 6).map((movie) => (
                 <MovieCard movie={movie} key={movie.id} />
               ))}
@@ -172,7 +172,7 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
               {nowPlayingMovies.map((movie) => (
                 <MovieCard key={movie.id} movie={movie} />
               ))}
@@ -198,7 +198,7 @@ const Home = () => {
             </div>
           </section>
 
-          {/* 🎬 2. General / Popular movies section */}
+          {/* 2. General / Popular movies section */}
           <section>
             <div className="mb-6">
               <h2 className="text-xl font-extrabold tracking-tight text-neutral-100">
@@ -208,7 +208,7 @@ const Home = () => {
                 The most popular movies streaming globally right now.
               </p>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
               {movies.map((movie) => (
                 <MovieCard movie={movie} key={movie.id} />
               ))}
