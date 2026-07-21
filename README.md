@@ -10,7 +10,9 @@ Whether you're searching for a movie to watch tonight or browsing upcoming relea
 
 ## ✨ Preview
 
-> _Screenshots will be added soon._
+<div align="center">
+  <img src="./src/assets/preview.jpg" alt="Movie Engine Preview" width="100%" style="border-radius: 8px;" />
+</div>
 
 ---
 
@@ -126,6 +128,7 @@ npm run dev
 Create a `.env` file in the project root.
 
 ```env
+VITE_TMDB_API_KEY=your_tmdb_api_key_here
 VITE_TMDB_API_URL=https://api.themoviedb.org/3
 ```
 

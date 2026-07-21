@@ -25,7 +25,6 @@ const MovieCard = ({ movie }) => {
   const handleWatchTrailer = async (e) => {
     e.stopPropagation();
 
-    // Fetch trailer key if we don't have it yet
     if (!trailerKey) {
       const key = await fetchMovieTrailer(movie.id);
       if (key) {
@@ -42,7 +41,6 @@ const MovieCard = ({ movie }) => {
   return (
     <>
       <div className="group relative bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-700 transition-all duration-300 flex flex-col justify-between">
-        {/* 🖼️ Image & Overlay Area */}
         <div className="relative aspect-[2/3] w-full overflow-hidden bg-neutral-950">
           <img
             src={
@@ -55,10 +53,8 @@ const MovieCard = ({ movie }) => {
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
 
-          {/* 🪄 Sliding Overlay (Bottom-Right to Top) */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent translate-y-full translate-x-full group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-300 ease-out z-20" />
 
-          {/* 🎯 Watch Trailer Play Action (Appears over layout layer on hover) */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-25">
             <button
               onClick={handleWatchTrailer}
@@ -69,7 +65,6 @@ const MovieCard = ({ movie }) => {
             </button>
           </div>
 
-          {/* ❤️ Like Button */}
           <div className="absolute top-3 right-3 z-30">
             <button
               className="cursor-pointer text-neutral-400 hover:text-red-500 bg-neutral-950/70 p-2 rounded-full backdrop-blur-md transition-colors duration-300"
@@ -84,7 +79,6 @@ const MovieCard = ({ movie }) => {
           </div>
         </div>
 
-        {/* 📝 Metadata Container */}
         <div className="p-4 bg-neutral-900/50 flex items-end justify-between gap-3">
           <div className="flex-1 min-w-0">
             <h2 className="text-sm font-bold text-neutral-200 group-hover:text-white truncate transition-colors duration-200">
@@ -111,11 +105,9 @@ const MovieCard = ({ movie }) => {
         </div>
       </div>
 
-      {/* 📺 Video Modal Layer (Renders completely outside layout when active) */}
       {isModalOpen && trailerKey && (
         <div className="fixed inset-0 bg-black/95 backdrop-blur-md z-[100] flex flex-col items-center justify-center p-4">
           <div className="w-full max-w-3xl bg-neutral-950 rounded-xl overflow-hidden border border-neutral-800 flex flex-col">
-            {/* ⬅️ Inner Modal Navigation Header */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-900 bg-neutral-900/50">
               <button
                 onClick={() => setIsModalOpen(false)}
@@ -128,7 +120,6 @@ const MovieCard = ({ movie }) => {
               </span>
             </div>
 
-            {/* 🎥 Embedded YouTube Player Content Box */}
             <div className="relative w-full aspect-video">
               <iframe
                 className="w-full h-full"

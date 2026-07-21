@@ -4,12 +4,10 @@ import Logo from "../../assets/myLogoB.png";
 const Navbar = () => {
   const location = useLocation();
 
-  // Helper function to highlight the active link
   const isActive = (path) => location.pathname === path;
 
   return (
     <nav className="fixed top-0 left-0 w-full h-16 z-50 flex items-center justify-between px-6 md:px-12 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-900">
-      {/* 🎬 Logo Container */}
       <div className="flex items-center">
         <Link to="/" className="flex items-center gap-2">
           <img
@@ -20,7 +18,6 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* 🍿 Navigation Links */}
       <div className="flex items-center gap-6 md:gap-8 text-sm font-semibold tracking-wide">
         <Link
           to="/"
