@@ -1,6 +1,3 @@
-// src/services/api.js
-
-// Helper function to query your local serverless proxy
 const fetchFromProxy = async (endpoint, query = "") => {
   try {
     const url = `/api/movies?endpoint=${encodeURIComponent(endpoint)}${
