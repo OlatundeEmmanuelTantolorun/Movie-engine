@@ -21,6 +21,7 @@ import {
 
 import MovieCard from "../components/MovieCard";
 import { useMovieContext } from "../context/MovieContext";
+import { toast } from "react-toastify";
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -39,8 +40,10 @@ const MovieDetails = () => {
   const toggleFavorite = () => {
     if (isFavorite) {
       removeFromFavorites(movie.id);
+      toast.info(`${movie.title} removed from favorites`);
     } else {
       addToFavorites(movie);
+      toast.success(`${movie.title} added to favorites ❤️`);
     }
   };
 
@@ -51,7 +54,7 @@ const MovieDetails = () => {
         setTrailerKey(key);
         setIsModalOpen(true);
       } else {
-        alert("Sorry, no trailer available for this movie.");
+        toast.error("Sorry, no trailer available.");
       }
     } else {
       setIsModalOpen(true);
@@ -132,7 +135,7 @@ const MovieDetails = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-transparent" />
 
         <div className="relative z-10 h-full flex items-end">
-          <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pb-12">
+          <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pb-12 lg:pb-14">
             <div className="max-w-3xl">
               <button
                 onClick={() => navigate(-1)}
