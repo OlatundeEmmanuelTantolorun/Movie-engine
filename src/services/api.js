@@ -1,130 +1,77 @@
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-const BASE_URL = "https://api.themoviedb.org/3";
+// src/services/api.js
+
+// Helper function to query your local serverless proxy
+const fetchFromProxy = async (endpoint, query = "") => {
+  try {
+    const url = `/api/movies?endpoint=${encodeURIComponent(endpoint)}${
+      query ? `&query=${encodeURIComponent(query)}` : ""
+    }`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (err) {
+    console.error(`Error fetching proxy endpoint ${endpoint}:`, err);
+    return null;
+  }
+};
 
 export const fetchMovies = async () => {
-  const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
-  const data = await response.json();
-  return data.results;
+  const data = await fetchFromProxy("/movie/popular");
+  return data?.results || [];
 };
 
 export const fetchMovieDetails = async (id) => {
-  try {
-    const response = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
-
-    const data = await response.json();
-
-    return data;
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
+  return await fetchFromProxy(`/movie/${id}`);
 };
 
 export const searchMovies = async (query) => {
-  const response = await fetch(
-    `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`,
-  );
-  const data = await response.json();
-  return data.results;
+  if (!query) return [];
+  const data = await fetchFromProxy("/search/movie", query);
+  return data?.results || [];
 };
 
 export const fetchMovieTrailer = async (movieId) => {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`,
-    );
-    const data = await response.json();
+  const data = await fetchFromProxy(`/movie/${movieId}/videos`);
+  if (!data?.results) return null;
 
-    // Find a video that is a Trailer and hosted on YouTube
-    const trailer = data.results?.find(
+  const trailer =
+    data.results.find(
       (video) => video.type === "Trailer" && video.site === "YouTube",
-    );
+    ) || data.results.find((video) => video.site === "YouTube");
 
-    // Return the YouTube key (e.g., "dQw4w9WgXcQ") or null if not found
-    return trailer ? trailer.key : null;
-  } catch (err) {
-    console.error("Error fetching trailer:", err);
-    return null;
-  }
+  return trailer ? trailer.key : null;
 };
 
 export const fetchMovieReviews = async (movieId) => {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/movie/${movieId}/reviews?api_key=${API_KEY}`,
-    );
-
-    const data = await response.json();
-
-    return data.results;
-  } catch (err) {
-    console.error(err);
-    return [];
-  }
+  const data = await fetchFromProxy(`/movie/${movieId}/reviews`);
+  return data?.results || [];
 };
 
 export const fetchSimilarMovies = async (id) => {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/movie/${id}/similar?api_key=${API_KEY}`,
-    );
-
-    const data = await response.json();
-    return data.results;
-  } catch (err) {
-    console.error("Error fetching similar movies:", err);
-    return [];
-  }
+  const data = await fetchFromProxy(`/movie/${id}/similar`);
+  return data?.results || [];
 };
 
 export const fetchUpcomingMovies = async () => {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/movie/upcoming?api_key=${API_KEY}`,
-    );
-    const data = await response.json();
-    return data.results; // Returns movies coming soon to theaters
-  } catch (err) {
-    console.error("Error fetching upcoming movies:", err);
-    return [];
-  }
+  const data = await fetchFromProxy("/movie/upcoming");
+  return data?.results || [];
 };
 
 export const fetchTopRatedMovies = async () => {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/movie/top_rated?api_key=${API_KEY}`,
-    );
-    const data = await response.json();
-    return data.results;
-  } catch (err) {
-    console.error(err);
-    return [];
-  }
+  const data = await fetchFromProxy("/movie/top_rated");
+  return data?.results || [];
 };
 
 export const fetchNowPlayingMovies = async () => {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/movie/now_playing?api_key=${API_KEY}`,
-    );
-    const data = await response.json();
-    return data.results;
-  } catch (err) {
-    console.error(err);
-    return [];
-  }
+  const data = await fetchFromProxy("/movie/now_playing");
+  return data?.results || [];
 };
 
 export const fetchTrendingMovies = async () => {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`,
-    );
-    const data = await response.json();
-    return data.results;
-  } catch (err) {
-    console.error(err);
-    return [];
-  }
+  const data = await fetchFromProxy("/trending/movie/week");
+  return data?.results || [];
 };
