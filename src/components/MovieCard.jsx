@@ -74,9 +74,13 @@ const MovieCard = ({ movie }) => {
           </div>
         </div>
 
-        <div className="p-4 bg-neutral-900/50 flex items-end justify-between gap-3">
+        <div className="p-1 bg-neutral-900/50 flex items-end justify-between gap-3">
           <div className="flex-1 min-w-0">
-            <h2 className="text-sm font-bold text-neutral-200 group-hover:text-white truncate transition-colors duration-200">
+            <h2
+              className="text-sm font-bold text-neutral-200 group-hover:text-white transition-colors duration-200
+                 line-clamp-2 min-h-[2.5rem] leading-5"
+              title={movie.title}
+            >
               {movie.title}
             </h2>
 
